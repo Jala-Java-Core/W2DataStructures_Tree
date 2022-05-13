@@ -125,15 +125,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
 	}
 	
-	// Method #2.
-	protected int depth(E val) {
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return -2; // this line is here only so this code will compile if you don't modify it
-
-	}
-	
 	// Method #3.
 	protected int height(E val) {
 
@@ -143,15 +135,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
 	}
 
-
-	// Method #4.
-	protected boolean isBalanced(Node n) {
-
-		/* IMPLEMENT THIS METHOD! */
-		
-		return true; // this line is here only so this code will compile if you don't modify it
-
-	}
 	
 	// Method #5. .
 	public boolean isBalanced() {
