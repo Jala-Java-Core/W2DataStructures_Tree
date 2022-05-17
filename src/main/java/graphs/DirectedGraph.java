@@ -24,6 +24,4 @@ public class DirectedGraph extends Graph {
     public boolean removeEdge(Node node1, Node node2, int weight) {
         return false;
     }
-
-
 }

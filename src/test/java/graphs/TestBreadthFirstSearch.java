@@ -19,6 +19,26 @@ public class TestBreadthFirstSearch {
 
     @Test
     public void dfs() {
+        Graph graph = new UndirectedGraph();
+        Node a = new Node("A");
+        Node b = new Node("B");
+        Node c = new Node("C");
+        Node d = new Node("D");
+        Node e = new Node("E");
+        Node f = new Node("F");
 
+        assertEquals(true, graph.addEdge(a, a, 1));
+        assertEquals(true, graph.addEdge(a, b, 1));
+        assertEquals(true, graph.addEdge(a, f, 1));
+        assertEquals(true, graph.addEdge(b, e, 1));
+        assertEquals(true, graph.addEdge(b, c, 1));
+        assertEquals(true, graph.addEdge(c, e, 1));
+        assertEquals(true, graph.addEdge(c, d, 1));
+        assertEquals(true, graph.addEdge(c, f, 1));
+        assertEquals(true, graph.addEdge(f, e, 1));
+
+        DepthFirstSearch dfsInstance = new DepthFirstSearch(graph);
+        boolean result = dfsInstance.dfs("D", a);
+        assertEquals(true, result);
     }
 }
