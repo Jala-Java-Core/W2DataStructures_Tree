@@ -2,8 +2,8 @@ package tasks.task2;
 
 
 public class BinarySearchTree<E extends Comparable<E>> {
-	class Node {
-		E value;
+	public class Node {
+		public E value;
 		Node leftChild = null;
 		Node rightChild = null;
 		Node(E value) {
@@ -118,31 +118,70 @@ public class BinarySearchTree<E extends Comparable<E>> {
 	
 	// Method #1.
 	public Node findNode(E val) {
+		return findNode(root, val);
+	}
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return null; // this line is here only so this code will compile if you don't modify it
+	private Node findNode(Node node, E val) {
+		if (node == null) {
+			return null;
+		}
 
+		if (node.value.equals(val)) {
+			return node;
+		} else if (node.value.compareTo(val) > 0) {
+			return findNode(node.leftChild, val);
+		} else {
+			return findNode(node.rightChild, val);
+		}
 	}
 	
 
 	// Method #3.
-	protected int height(E val) {
+	public int height(E val) {
+		Node node = findNode(val);
+		if (node == null) {
+			return 0;
+		}
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return -2; // this line is here only so this code will compile if you don't modify it
+		if (isLeaf(node)) {
+			return 1;
+		}
 
+		int leftHeight = 0;
+		int rightHeight = 0;
+
+		if (node.leftChild != null) {
+			leftHeight = height(node.leftChild.value);
+		}
+
+		if (node.rightChild != null) {
+			rightHeight = height(node.rightChild.value);
+		}
+		return (getMax(leftHeight, rightHeight) + 1);
 	}
 
+	private boolean isLeaf(Node node){
+		return node.leftChild == null && node.rightChild ==null;
+	}
+
+	private int getMax(int leftHeight, int rightHeight){
+		return (leftHeight > rightHeight) ? leftHeight : rightHeight;
+	}
 	
 	// Method #5. .
-	public boolean isBalanced() {
+	public boolean isBalanced(Node node) {
+		if (node == null ) {
+			return false;
+		}
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return false; // this line is here only so this code will compile if you don't modify it
+		if (isLeaf(node)) {
+			return true;
+		}
 
+		if (node.leftChild == null || node.rightChild == null) {
+			return false;
+		}
+
+		return height(node.leftChild.value) == height(node.rightChild.value);
 	}
-
 }
