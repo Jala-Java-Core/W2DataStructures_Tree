@@ -2,8 +2,8 @@ package tasks.task2;
 
 
 public class BinarySearchTree<E extends Comparable<E>> {
-	class Node {
-		E value;
+	public class Node {
+		public E value;
 		Node leftChild = null;
 		Node rightChild = null;
 		Node(E value) {
@@ -118,30 +118,80 @@ public class BinarySearchTree<E extends Comparable<E>> {
 	
 	// Method #1.
 	public Node findNode(E val) {
+		return findNode(root, val);
+	}
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return null; // this line is here only so this code will compile if you don't modify it
+	protected Node findNode(Node n, E val) {
+		if (n == null) {
+			return null;
+		}
 
+		if (n.value.equals(val)) {
+			return n;
+		} else if (n.value.compareTo(val) > 0) {
+			return findNode(n.leftChild, val);
+		} else {
+			return findNode(n.rightChild, val);
+		}
 	}
 	
 
 	// Method #3.
-	protected int height(E val) {
+	public int height(E val) {
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return -2; // this line is here only so this code will compile if you don't modify it
-
+		Node node = findNode(val);
+		if (node == null) {
+			return -1;
+		}
+		int height = height(node.leftChild, node.rightChild);
+		return height;
 	}
+	protected int height(Node leftChild, Node rightChild) {
+		if (leftChild == null && rightChild == null) {
+			return 0;
+		} else {
+			int leftChildHeight = 0;
+			int rightChildHeight = 0;
 
-	
+			if (leftChild!= null &&  rightChild != null) {
+				leftChildHeight = height(leftChild.leftChild, leftChild.rightChild) + 1;
+				rightChildHeight = height(rightChild.leftChild, rightChild.rightChild) + 1;
+				if (leftChildHeight > rightChildHeight) {
+					return leftChildHeight;
+				} else {
+					return rightChildHeight;
+				}
+			} else if (leftChild == null) {
+				rightChildHeight = height(rightChild.leftChild, rightChild.rightChild) + 1;
+				return rightChildHeight;
+			} else {
+				leftChildHeight = height(leftChild.leftChild, leftChild.rightChild) + 1;
+				return leftChildHeight;
+			}
+		}
+	}
 	// Method #5. .
-	public boolean isBalanced() {
+	public boolean isBalanced(Node node) {
+		boolean response = false;
+		if (node == null ) {
+			return response;
+		}
 
-		/* IMPLEMENT THIS METHOD! */
+		int leftChildHeight = -1;
+		if (node.leftChild != null) {
+			leftChildHeight = height(node.leftChild.value);
+		}
+
+		int rightChildHeight = -1;
+		if (node.rightChild != null) {
+			rightChildHeight = height(node.rightChild.value);
+		}
+
+		if (Math.abs(leftChildHeight - rightChildHeight) <= 1) {
+			response = true;
+		}
 		
-		return false; // this line is here only so this code will compile if you don't modify it
+		return response;
 
 	}
 
