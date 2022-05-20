@@ -1,6 +1,6 @@
 package graphs;
 
-public class Node {
+public class  Node {
     // Code W2-13
     private String element;
 

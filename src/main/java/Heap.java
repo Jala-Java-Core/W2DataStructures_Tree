@@ -34,7 +34,7 @@ public class Heap {
     }
 
     //Code W2-10
-    public int extract() {
+    public int extractLast() {
         if (size == 0) {
             throw new Error();
         }

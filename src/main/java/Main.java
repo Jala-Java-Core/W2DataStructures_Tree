@@ -48,6 +48,7 @@ public class Main {
             BookReport reportInfo = entry.getKey();
             int score = entry.getValue();
             System.out.println(reportInfo + " " + score + " pts.");
+            System.out.println(reportInfo.toString());
         }
     }
 }

@@ -28,16 +28,28 @@ public class TestHeap {
 
     @Test
     public void extract() {
-        Heap heap = new Heap(5);
-        heap.add(2);
-        heap.add(3);
+        Heap heap = new Heap(12);
+        heap.add(20);
+        heap.add(18);
+        heap.add(14);
+        heap.add(9);
+        heap.add(16);
+        heap.add(8);
+        heap.add(10);
         heap.add(5);
-        heap.add(4);
+        heap.add(2);
+        heap.add(15);
         heap.add(1);
-        assertEquals(5, heap.values[0]);
-        assertEquals(4, heap.values[1]);
-        assertEquals(3, heap.values[2]);
-        assertEquals(2, heap.values[3]);
-        assertEquals(1, heap.values[4]);
+        heap.add(7);
+        //heap.add(17);
+        assertEquals(20, heap.values[0]);
+        assertEquals(18, heap.values[1]);
+        assertEquals(14, heap.values[2]);
+        assertEquals(9, heap.values[3]);
+        assertEquals(16, heap.values[4]);
+        int extracted = heap.extractLast();
+        assertEquals(7, extracted);
+        extracted = heap.extractLast();
+        assertEquals(1, extracted);
     }
 }
