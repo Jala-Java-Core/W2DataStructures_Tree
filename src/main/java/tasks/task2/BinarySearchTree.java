@@ -118,31 +118,74 @@ public class BinarySearchTree<E extends Comparable<E>> {
 	
 	// Method #1.
 	public Node findNode(E val) {
+		return findNode(root, val);
+	}
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return null; // this line is here only so this code will compile if you don't modify it
+	protected Node findNode(Node n, E val) {
+		if (n == null || n.value == val) {
+			return n;
+		}
 
+		if (n.value.compareTo(val) > 0) {
+			return findNode(n.leftChild, val);
+		}
+
+		return findNode(n.rightChild, val);
+	}
+
+	// Method #2.
+	public int depth(E val) {
+		return depth(root, val, 0);
+	}
+
+	protected int depth(Node n, E val, int depth) {
+		if (n == null || val == null) {
+			return -1;
+		}
+
+		if (n.value == val) {
+			return depth;
+		}
+
+		if (n.value.compareTo(val) > 0) {
+			return depth(n.leftChild, val, depth + 1);
+		}
+
+		return depth(n.rightChild, val, depth + 1);
 	}
 	
 
 	// Method #3.
-	protected int height(E val) {
-
-		/* IMPLEMENT THIS METHOD! */
-		
-		return -2; // this line is here only so this code will compile if you don't modify it
-
+	public int height(E val) {
+		if (val == null) {
+			return -1;
+		}
+		Node n = findNode(val);
+		return height(n, 0);
 	}
 
+	protected int height(Node n, int height) {
+		if (n == null) {
+			return -1;
+		}
+		if (n.leftChild == null && n.rightChild == null) {
+			return height;
+		}
+
+		return Math.max(height(n.leftChild, height + 1), height(n.rightChild, height + 1));
+	}
+
+	// Method #4.
+	public boolean isBalanced(Node n) {
+		if (n == null) {
+			return false;
+		}
+		return Math.abs(height(n.leftChild, 0) - height(n.rightChild, 0)) <= 1;
+	}
 	
 	// Method #5. .
 	public boolean isBalanced() {
-
-		/* IMPLEMENT THIS METHOD! */
-		
-		return false; // this line is here only so this code will compile if you don't modify it
-
+		return isBalanced(root);
 	}
 
 }
