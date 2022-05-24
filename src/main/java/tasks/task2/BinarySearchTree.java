@@ -118,31 +118,92 @@ public class BinarySearchTree<E extends Comparable<E>> {
 	
 	// Method #1.
 	public Node findNode(E val) {
-
-		/* IMPLEMENT THIS METHOD! */
-		
-		return null; // this line is here only so this code will compile if you don't modify it
-
+		return findNode(root, val);
 	}
-	
+
+	protected Node findNode(Node n, E val) {
+		if (n == null) return null;
+		if (val.compareTo(n.value) == 0) return n;
+
+		return val.compareTo(n.value) < 0 ? findNode(n.leftChild, val) : findNode(n.rightChild, val);
+	}
+
+	// Method #2.
+	public int depth(E val) {
+		return depth(root, val);
+	}
+
+	protected int depth(Node n, E val) {
+		if (n == null || val == null) return -1;
+
+		int nodeDepth = -1;
+
+		if (
+			val.compareTo(n.value) == 0 ||
+			(
+				val.compareTo(n.value) < 0 &&
+				(nodeDepth = depth(n.leftChild, val)) >= 0
+			) ||
+			(
+				val.compareTo(n.value) > 0 &&
+				(nodeDepth = depth(n.rightChild, val)) >= 0
+			)
+		) {
+			return nodeDepth + 1;
+		}
+
+		return nodeDepth;
+	}
 
 	// Method #3.
-	protected int height(E val) {
+	public int height(E val) {
+		if (val == null) return -1;
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return -2; // this line is here only so this code will compile if you don't modify it
+		Node node = findNode(val);
+		if (node == null) return -1;
 
+		return height(node);
+	}
+
+	protected int height(Node n) {
+		if (n == null) return -1;
+		int leftHeight = height(n.leftChild);
+		int rightHeight = height(n.rightChild);
+
+		return Math.max(leftHeight, rightHeight) + 1;
 	}
 
 	
-	// Method #5. .
+	// Method #4.
 	public boolean isBalanced() {
+		if (root == null) return false;
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return false; // this line is here only so this code will compile if you don't modify it
-
+		return isBalanced(root) && isBalancedCheckChildren(root);
 	}
 
+	protected boolean isBalancedCheckChildren(Node n) {
+		if (n == null) return true;
+
+		return isBalanced(n) &&
+				isBalancedCheckChildren(n.leftChild) &&
+				isBalancedCheckChildren(n.rightChild);
+	}
+
+	public boolean isBalanced(E val) {
+		if (val == null) return false;
+
+		Node node = findNode(val);
+		if (node == null) return false;
+
+		return isBalanced(node);
+	}
+
+	public boolean isBalanced(Node n) {
+		if (n == null) return false;
+
+		int leftHeight = height(n.leftChild);
+		int rightHeight = height(n.rightChild);
+
+		return Math.abs(leftHeight - rightHeight) <= 1;
+	}
 }
