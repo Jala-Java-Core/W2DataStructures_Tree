@@ -153,5 +153,25 @@ public class TestGraphUtils {
         path.add("F");
         assertFalse(GraphUtils.isHamiltonianPath(directedGraph, path));
     }
+
+    @Test
+    public void isHamiltonianPathInvalidGraph() {
+        List<String> path = new ArrayList<>();
+        path.add("A");
+        path.add("B");
+        path.add("E");
+        assertFalse(GraphUtils.isHamiltonianPath(null, path));
+    }
+
+    @Test
+    public void isHamiltonianPathInvalidPathEmpty() {
+        List<String> path = new ArrayList<>();
+        assertFalse(GraphUtils.isHamiltonianPath(undirectedGraph, path));
+    }
+
+    @Test
+    public void isHamiltonianPathInvalidPathNull() {
+        assertFalse(GraphUtils.isHamiltonianPath(undirectedGraph, null));
+    }
 }
 

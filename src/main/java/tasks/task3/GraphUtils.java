@@ -49,7 +49,7 @@ public class GraphUtils {
 
 
 	public static boolean isHamiltonianPath(Graph g, List<String> values) {
-		if (g == null || values == null) return false;
+		if (g == null || values == null || values.size() == 0) return false;
 
 		boolean validHamiltonianPath = true;
 
