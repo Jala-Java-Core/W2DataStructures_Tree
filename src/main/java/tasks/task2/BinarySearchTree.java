@@ -119,30 +119,101 @@ public class BinarySearchTree<E extends Comparable<E>> {
 	// Method #1.
 	public Node findNode(E val) {
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return null; // this line is here only so this code will compile if you don't modify it
+		if(val == null || root == null) return null;
 
+		return findNode(root, val);
 	}
-	
+
+	protected Node findNode(Node node, E value) {
+
+		int cmp = value.compareTo(node.value);
+
+		if(cmp == 0) {
+			return node;
+		}
+		else if(cmp < 0) {
+			if(node.leftChild == null) return null;
+			return findNode(node.leftChild, value);
+		} else {
+			if (node.rightChild == null) return null;
+			return findNode(node.rightChild, value);
+		}
+	}
+
+	public E getNodeValue(Node node) {
+		return node.value;
+	}
 
 	// Method #3.
-	protected int height(E val) {
+	public int height(E val) {
+		if(val == null || root == null) return -1;
+		int heightBase = 0;
+		return height(root, val, heightBase);
+	}
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return -2; // this line is here only so this code will compile if you don't modify it
+	protected int height(Node node, E value, int currentHeight) {
 
+		int cmp = value.compareTo(node.value);
+
+		if(cmp == 0) {
+			return currentHeight;
+		}
+		else if (cmp < 0) {
+			if(node.leftChild == null) return -1;
+			return height(node.leftChild, value, currentHeight + 1);
+		} else {
+			if(node.rightChild == null) return -1;
+			return height(node.rightChild, value, currentHeight + 1);
+		}
 	}
 
 	
 	// Method #5. .
 	public boolean isBalanced() {
+		if (root == null) return false;
+		int baseHeight = 0;
+		return isBalanced(root, baseHeight);
+	}
 
-		/* IMPLEMENT THIS METHOD! */
-		
-		return false; // this line is here only so this code will compile if you don't modify it
+	protected boolean isBalanced(Node node, int currentHeight) {
 
+		if(node == null) return true;
+
+		int heightLeftTree = node.leftChild == null? 0 : height(node.leftChild, currentHeight + 1);
+		int heightRightTree = node.rightChild == null? 0 : height(node.rightChild, currentHeight + 1);
+
+		if (Math.abs(heightLeftTree - heightRightTree) < 1
+				&& isBalanced(node.leftChild, currentHeight + 1)
+				&& isBalanced(node.rightChild, currentHeight + 1))
+		{
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public int height() {
+		if(root == null) return -1;
+		int heightBase = 0;
+		return height(root, heightBase);
+	}
+
+	protected int height(Node node, int currentHeight) {
+
+		int leftHeight, rightHeight;
+		if (node.leftChild == null) {
+			leftHeight = currentHeight;
+		} else {
+			leftHeight = height(node.leftChild, currentHeight + 1);
+		}
+
+		if (node.rightChild == null) {
+			rightHeight = currentHeight;
+		} else {
+			rightHeight = height(node.rightChild, currentHeight + 1);
+		}
+
+		return Math.max(leftHeight, rightHeight);
 	}
 
 }
