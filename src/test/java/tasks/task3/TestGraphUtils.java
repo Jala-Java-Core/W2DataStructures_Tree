@@ -16,43 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class TestGraphUtils {
     Graph undirectedGraph;
     Graph directedGraph;
+    Graph balancedGraph;
 
     @BeforeEach
     public void setup() {
-        undirectedGraph = new UndirectedGraph();
-        directedGraph = new DirectedGraph();
-
-        Node a = new Node("A");
-        Node b = new Node("B");
-        Node c = new Node("C");
-        Node d = new Node("D");
-        Node e = new Node("E");
-        Node f = new Node("F");
-        Node g = new Node("G");
-        Node h = new Node("H");
-        Node i = new Node("I");
-
-        undirectedGraph.addEdge(a, b);
-        undirectedGraph.addEdge(a, f);
-        undirectedGraph.addEdge(a, e);
-        undirectedGraph.addEdge(b, e);
-        undirectedGraph.addEdge(b, f);
-        undirectedGraph.addEdge(c, f);
-        undirectedGraph.addEdge(c, d);
-        undirectedGraph.addEdge(d, e);
-        undirectedGraph.addEdge(g, h);
-
-        directedGraph.addEdge(a, b);
-        directedGraph.addEdge(a, d);
-        directedGraph.addEdge(a, e);
-        directedGraph.addEdge(b, e);
-        directedGraph.addEdge(c, g);
-        directedGraph.addEdge(d, c);
-        directedGraph.addEdge(e, f);
-        directedGraph.addEdge(e, g);
-        directedGraph.addEdge(f, g);
-        directedGraph.addEdge(g, a);
-        directedGraph.addEdge(h, i);
+        undirectedGraph = GraphBuilder.buildUndirectedGraph(System.getProperty("user.dir") + "\\src\\test\\java\\tasks\\task3\\undirected_graph_test.txt");
+        directedGraph = GraphBuilder.buildDirectedGraph(System.getProperty("user.dir") + "\\src\\test\\java\\tasks\\task3\\directed_graph_test.txt");
+        balancedGraph = GraphBuilder.buildUndirectedGraph(System.getProperty("user.dir") + "\\src\\test\\java\\tasks\\task3\\balanced_graph_test.txt");
     }
 
     @After
@@ -98,6 +68,17 @@ public class TestGraphUtils {
         expectedResult.add("E");
 
         assertEquals(expectedResult, GraphUtils.nodesWithinDistance(directedGraph, "A", 1));
+    }
+
+    @Test
+    public void nodesWithinDistanceBalancedGraphValid() {
+        Set expectedResult = new HashSet<>();
+        expectedResult.add("B");
+        expectedResult.add("C");
+        expectedResult.add("H");
+        expectedResult.add("I");
+
+        assertEquals(expectedResult, GraphUtils.nodesWithinDistance(balancedGraph, "A", 2));
     }
 
     @Test
